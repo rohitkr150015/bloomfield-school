@@ -1,0 +1,11 @@
+﻿import { chromium } from "playwright";
+import { mkdirSync } from "node:fs";
+mkdirSync("docs/qa", { recursive: true });
+const browser = await chromium.launch({ channel: "chrome", headless: true });
+const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+await page.goto("http://127.0.0.1:5173/");
+await page.evaluate(() => document.fonts.ready);
+await page.screenshot({ path: "docs/qa/hero-check.png" });
+await page.setViewportSize({ width: 390, height: 844 });
+await page.screenshot({ path: "docs/qa/mobile-check.png" });
+await browser.close();
