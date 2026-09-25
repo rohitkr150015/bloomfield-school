@@ -1,11 +1,18 @@
-const CACHE='bloomfield-public-v1';
+const CACHE='bloomfield-public-v2';
 const SHELL=['/','/bloom.svg','/manifest.webmanifest','/effects/site-effects.css','/effects/site-effects.js','/discovery.js'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)));self.skipWaiting();});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('bloomfield-public-')&&k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
 const privatePath=path=>/^\/(portal|login|auth|api|verify|admissions\/(apply|track)|visit)(\/|$)/.test(path);
 self.addEventListener('fetch',event=>{
  const url=new URL(event.request.url);
- if(event.request.method!=='GET'||url.origin!==self.location.origin||privatePath(url.pathname)||url.search)return;
+ if(event.request.method!=='GET'||url.origin!==self.location.origin||privatePath(url.pathname)||(url.search&&url.pathname!=='/discovery.js'))return;
+ // Keep the unbundled discovery component fresh for returning desktop visitors.
+ if(url.pathname==='/discovery.js'){
+  event.respondWith(fetch(event.request).then(response=>{
+   if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(event.request,copy)));}
+   return response;
+  }).catch(()=>caches.match(event.request)));return;
+ }
  if(event.request.mode==='navigate'){
   event.respondWith(fetch(event.request).catch(()=>caches.match('/')));return;
  }
