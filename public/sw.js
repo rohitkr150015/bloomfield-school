@@ -1,5 +1,5 @@
 const CACHE='bloomfield-public-v1';
-const SHELL=['/','/bloom.svg','/manifest.webmanifest'];
+const SHELL=['/','/bloom.svg','/manifest.webmanifest','/effects/site-effects.css','/effects/site-effects.js','/discovery.js'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)));self.skipWaiting();});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('bloomfield-public-')&&k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
 const privatePath=path=>/^\/(portal|login|auth|api|verify|admissions\/(apply|track)|visit)(\/|$)/.test(path);

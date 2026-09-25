@@ -514,7 +514,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </p>
         </Modal>
       )}
-      <main id="main" tabIndex={-1}>
+      <main id="main" tabIndex={-1} data-page-key={pathname}>
         {children}
       </main>
       {!portal && (
