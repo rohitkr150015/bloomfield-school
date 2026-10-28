@@ -407,28 +407,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     ["Admissions", "/admissions", "प्रवेश"],
     ["Families", "/families", "परिवार"],
   ];
-  const reset = () => {
-    try {
-      Object.keys(localStorage)
-        .filter((k) => k.startsWith("bloomfield-demo:"))
-        .forEach((k) => localStorage.removeItem(k));
-      window.location.reload();
-    } catch {
-      window.location.reload();
-    }
-  };
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <div className="demo-bar">
-        <span>
-          <span className="demo-dot" />
-          Demo school — sample data; no real submission/payment.
-        </span>
-        <button onClick={reset}>Reset demo</button>
-      </div>
       {offline && (
         <div className="offline" role="status">
           You’re offline. Public pages remain available; reconnect before

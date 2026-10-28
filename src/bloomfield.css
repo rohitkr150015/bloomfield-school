@@ -180,23 +180,6 @@ svg {
 .section-heading .text-link {
   white-space: nowrap;
 }
-.demo-bar {
-  background: #eaf0e8;
-  color: #46624d;
-  min-height: 30px;
-  font-size: 12px;
-  padding: 4px max(32px, calc((100% - 1280px) / 2));
-  line-height: 1.3;
-}
-.demo-dot {
-  background: #718b60;
-  width: 5px;
-  height: 5px;
-}
-.demo-bar button {
-  font-size: 12px;
-  min-height: 24px;
-}
 .site-header {
   background: #fff;
   position: relative;
@@ -2726,19 +2709,6 @@ dialog::backdrop {
   }
   .page {
     padding-top: 25px;
-  }
-  .demo-bar {
-    font-size: 10px;
-    padding: 6px 20px;
-    gap: 9px;
-    min-height: 35px;
-  }
-  .demo-bar > span {
-    line-height: 1.35;
-  }
-  .demo-bar button {
-    font-size: 10px;
-    min-height: 30px;
   }
   .utility {
     padding: 3px 20px;
